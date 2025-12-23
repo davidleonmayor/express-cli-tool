@@ -1,0 +1,28 @@
+{
+  "name": "express-cli-utils",
+  "version": "1.0.0",
+  "description": "Provides an initial configuration and architecture, then generates content according to the configuration.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.23.0",
+  "dependencies": {
+    "@inquirer/prompts": "8.0.2",
+    "chalk": "5.6.2",
+    "child_process": "1.0.2",
+    "commander": "14.0.2",
+    "figlet": "1.9.4",
+    "inquirer": "13.0.2",
+    "ora": "9.0.0",
+    "path": "0.12.7",
+    "shelljs": "0.10.0"
+  },
+  "bin": {
+    "ex": "./bin/index.js"
+  }
+}
