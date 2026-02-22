@@ -10,14 +10,12 @@ const dependencies = [
   'compression',
   'bcryptjs',
   'http-errors',
-  //'@prisma/clien'
 ];
 
 const devDependencies = [
-  'prisma',
-  'nodemon'
-
-
+  'nodemon',
+  'typescript',
+  '@types/node'
 ]
 
 export { dependencies, devDependencies };

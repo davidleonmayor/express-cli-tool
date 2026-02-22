@@ -1,0 +1,4 @@
+- [ ] Dejar listo con el punto de entrada de la API.
+- [ ] TS nativo por defecto.
+- [ ] Relative paths "@" to this project, to code more easier
+- [ ] choice package manager.
