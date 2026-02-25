@@ -2,3 +2,4 @@
 - [ ] TS nativo por defecto.
 - [ ] Relative paths "@" to this project, to code more easier
 - [ ] choice package manager.
+- [ ] Add @/alias depending of arquitecture

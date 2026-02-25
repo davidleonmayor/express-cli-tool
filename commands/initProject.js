@@ -33,7 +33,6 @@ async function askProjectDetails() {
         message: 'Choice an arquitecture',
         //choices: ['clean', 'exagonal', 'capas']
         choices: ['exagonal']
-
       })
     // const importAlias = await confirm({
     //   description: 'Would you use @/<module> alias?',
@@ -41,10 +40,6 @@ async function askProjectDetails() {
     // })
   
     // External
-    // const orm = await confirm({
-    //     message: 'Would you use PrimsORM?',
-    //     default: true
-    // })
     // const database = await select({
     //   type: 'list',
     //   name: 'database',
@@ -117,11 +112,18 @@ async function projectConfig(projectName) {
 
     // install dependencies
     // TODO: install with selected p. Manager
-    // await runCommandWithBuilder(`npm i -E ${dependencies.join(' ')}`)
-    // await runCommandWithBuilder(`npm i -E -D ${devDependencies.join(' ')}`)
+    await runCommandWithBuilder(`npm i -E ${dependencies.join(' ')}`)
+    await runCommandWithBuilder(`npm i -E -D ${devDependencies.join(' ')}`)
     //await configureEnvironment(details.database, projectName, details.language);
+    // -----------
+    // add dependecies to package.json
+    // 1. tomar .json, 2. pegar de las constantes
+    
+    // -----------
+
+
     //await configureGitIgnore();
-    await configureLanguage(details);
+    await configureLanguage(details); // TODO: config TS.
     //await configureDatabase(details.database, details.language);
     //await configureLogger(details.language);
     //await configureTesting(details.language, details.testing);
@@ -134,6 +136,11 @@ async function projectConfig(projectName) {
     await directoriesStructure(details);
     
     spinner.succeed(chalk.green(`Project ${projectName} have been created 🎉 `));
+    console.log(`
+  \nNext steps\n
+  cd ${projectName}
+  npm i
+    `);
   } catch (error) {
     spinner.fail(`Failed to create project: \n ${error}`);
     console.log(chalk.red(error));

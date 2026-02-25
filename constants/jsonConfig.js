@@ -2,6 +2,7 @@ const dependencies = [
   'express',
   'dotenv',
   'cors',
+  'cookie-parser',
   'helmet',
   'morgan',
   'express-rate-limit',
