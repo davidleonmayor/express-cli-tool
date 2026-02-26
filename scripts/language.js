@@ -8,6 +8,7 @@ import { runCommandWithBuilder } from '../utils/runCommandWithBuilder.js'
  * @param {string} author - The author of the book.
  */
 export async function configureLanguage(details) {
+  console.log(`details: ${details}`)
   const packageJsonPath = 'package.json';
   const packageJson= JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 

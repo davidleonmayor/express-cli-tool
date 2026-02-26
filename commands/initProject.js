@@ -1,6 +1,6 @@
 import fs from "fs"
 import chalk from "chalk"
-import { select} from '@inquirer/prompts';
+import { select, confirm } from '@inquirer/prompts';
 import ora from "ora";
 import shell from "shelljs";
 
@@ -11,6 +11,7 @@ import templateCodePackageJSON from "../templates/config/packageJSON.js"
 
 import { configureLanguage } from "../scripts/language.js"
 import { configureExpressConfig } from "../scripts/express.js"
+import { configureTesting } from "../scripts/test.js"
 
 const packageJson = JSON.parse(
   fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
@@ -19,6 +20,7 @@ const packageJson = JSON.parse(
 const PROGRAMIN_LANGUAGE = 'TypeScript';
 
 async function askProjectDetails() {
+  console.log("init input config")
   try {
     const packageManager = await select({
         type: 'list',
@@ -35,10 +37,10 @@ async function askProjectDetails() {
         //choices: ['clean', 'exagonal', 'capas']
         choices: ['exagonal']
       })
-    // const importAlias = await confirm({
-    //   description: 'Would you use @/<module> alias?',
-    //   //default: true
-    // })
+    const importAlias = await confirm({
+      message: 'Would you use @/<module> alias?',
+      default: true
+    })
   
     // External
     // const database = await select({
@@ -47,18 +49,19 @@ async function askProjectDetails() {
     //   message: 'Choise a database',
     //   choices: ['MySQL', 'PostgreSQL']
     // })
-    // const testing = await select({
-    //   type: 'list',
-    //   name: 'testing',
-    //   message: 'Choise testing tool',
-    //   choices: ['Jest', 'Mocha']
-    // })
+    const testing = await select({
+      type: 'list',
+      name: 'testing',
+      message: 'Choise testing tool',
+      //choices: ['Jest & supertest', 'Mocha']
+      choices: ['Jest', 'Mocha']
+    })
   
     //TODO: multi selector, for patherns
     // const desingPatherns = await
 
     console.log("Selection ends")
-    return { packageManager, arquitecture }
+    return { packageManager, arquitecture, importAlias, testing };
   } catch (error) {
     if (error.isTtyError) {
       process.stdout.write('Prompt cannot be displayed on this terminal.');
@@ -80,60 +83,43 @@ async function projectConfig(projectName) {
 
   // initial config project
   const details = await askProjectDetails()
-  process.stdout.write("\n");
-  const spinner = ora(`Installation in progress... ☕`).start();
-  // spiner time
-  // const spinner = ora(`Setting up project...`).start();
-  // setTimeout(() => {
-  //   spinner.succeed(chalk.green("Project setup complete! 🚀"));
-  // }, 3000);
-  //
+  //process.stdout.write("\n");
+  const spinner = ora(`\nInstallation in progress... ☕`).start();
 
   // project creation
   try {
     shell.mkdir(projectName);
     shell.cd(projectName);
 
-    // TODO: general command
-    // init package.json with
-    //await runCommandWithBuilder(`${details.packageManager} init -y`)
     await runCommandWithBuilder('npm init -y')
 
     // basic package.json config
     const packageJsonPath = 'package.json';
-    //console.log("JSON template:", templateCodePackageJSON()) // TODO: set template
-    //shell.echo(templateCodePackageJSON()).to("package.json")
+    //console.log("JSON template:", templateCodePackageJSON())
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
     packageJson.name = projectName;
     packageJson.description = `This is a ${projectName} project`;
     packageJson.language = PROGRAMIN_LANGUAGE;
-    // packageJson.testing = details.testing; // TODO -> testing tools I use ->  jsut jest & superset
+    packageJson.testing = details.testing;
     
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
     // install dependencies
-    // TODO: install with selected p. Manager
     await runCommandWithBuilder(`npm i -E ${dependencies.join(' ')}`)
     await runCommandWithBuilder(`npm i -E -D ${devDependencies.join(' ')}`)
     //await configureEnvironment(details.database, projectName, details.language);
-    // -----------
-    // add dependecies to package.json
-    // 1. tomar .json, 2. pegar de las constantes
-    
-    // -----------
-
 
     //await configureGitIgnore();
-    await configureLanguage(details); // TODO: config TS.
+    await configureLanguage(details);
     //await configureDatabase(details.database, details.language);
     //await configureLogger(details.language);
-    //await configureTesting(details.language, details.testing);
+    await configureTesting(details.testing);
     //await configureMiddlewares(details.language);
     await configureExpressConfig(details);
-    // setup prisma
+
+    // setup prismaORM
     //await runCommandWithBuilder("npm i -E @prisma/client")
 
-    // TODO: remove triling props "datails.languaje" etc. It must be more easy and global
     await directoriesStructure(details);
     
     spinner.succeed(chalk.green(`Project ${projectName} have been created 🎉 `));
