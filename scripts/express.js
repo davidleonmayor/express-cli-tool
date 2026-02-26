@@ -9,10 +9,10 @@ import templateCodeExpressConfigTS from '../templates/configs/express-config/ts/
 export async function configureExpressConfig(details) {
   // check if exist or create
   const configDir = path.resolve('src/configs');
-  if (!fs.existsSync(configDir)) fs.mkdirSync(configDir);
+  if (!fs.existsSync(configDir)) fs.mkdirSync(configDir, { recursive: true });
 
   fs.writeFileSync(
-    path(configDir, 'express.config.ts'),
+    path.join(configDir, 'express.config.ts'),
     templateCodeExpressConfigTS()
   )
 }

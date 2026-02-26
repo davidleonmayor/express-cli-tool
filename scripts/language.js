@@ -7,7 +7,7 @@ import { runCommandWithBuilder } from '../utils/runCommandWithBuilder.js'
  * @param {string} title - The title of the book.
  * @param {string} author - The author of the book.
  */
-async function configureLanguage(details) {
+export async function configureLanguage(details) {
   const packageJsonPath = 'package.json';
   const packageJson= JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
@@ -31,7 +31,7 @@ async function configureLanguage(details) {
   await runCommandWithBuilder('npx tsc --init');
 
   const tsConfigPath = 'tsconfig.json';
-  let custumConfig = {
+  let customTsConfig = {
     compilerOptions: {
         target: 'ESNext',
         module: 'NodeNext',
@@ -71,4 +71,3 @@ async function configureLanguage(details) {
   
 }
 
-export { configureLanguage };

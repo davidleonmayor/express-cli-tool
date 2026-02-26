@@ -10,6 +10,7 @@ import { directoriesStructure } from "../scripts/directoriesStructure.js"
 import templateCodePackageJSON from "../templates/config/packageJSON.js"
 
 import { configureLanguage } from "../scripts/language.js"
+import { configureExpressConfig } from "../scripts/express.js"
 
 const packageJson = JSON.parse(
   fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
@@ -128,7 +129,7 @@ async function projectConfig(projectName) {
     //await configureLogger(details.language);
     //await configureTesting(details.language, details.testing);
     //await configureMiddlewares(details.language);
-    // TODO TODO: await configureExpressConfig(details.language);
+    await configureExpressConfig(details);
     // setup prisma
     //await runCommandWithBuilder("npm i -E @prisma/client")
 

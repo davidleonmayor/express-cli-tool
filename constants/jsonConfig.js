@@ -16,7 +16,8 @@ const dependencies = [
 const devDependencies = [
   'nodemon',
   'typescript',
-  '@types/node'
+  '@types/node',
+  'tsx'
 ]
 
 export { dependencies, devDependencies };
