@@ -12,6 +12,7 @@ import templateCodePackageJSON from "../templates/config/packageJSON.js"
 import { configureLanguage } from "../scripts/language.js"
 import { configureExpressConfig } from "../scripts/express.js"
 import { configureTesting } from "../scripts/test.js"
+import { configureVarEnvironment } from "../scripts/varEnv.js" 
 
 const packageJson = JSON.parse(
   fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
@@ -22,13 +23,6 @@ const PROGRAMIN_LANGUAGE = 'TypeScript';
 async function askProjectDetails() {
   console.log("init input config")
   try {
-    const packageManager = await select({
-        type: 'list',
-        name: 'packageManager',
-        message: 'Select package manager:',
-        // choices: ['npm', 'pnpm', 'yarn'],
-        choices: ['npm']
-      })
     // TODO: add all features
     const arquitecture = await select({
         type: 'list',
@@ -43,12 +37,16 @@ async function askProjectDetails() {
     })
   
     // External
-    // const database = await select({
-    //   type: 'list',
-    //   name: 'database',
-    //   message: 'Choise a database',
-    //   choices: ['MySQL', 'PostgreSQL']
+    // const useDocker = await confirm({
+    //   message: "Would you use Docker?",
+    //   default: true
     // })
+    const database = await select({
+      type: 'list',
+      name: 'database',
+      message: 'Choise a database',
+      choices: ['MySQL', 'PostgreSQL']
+    })
     const testing = await select({
       type: 'list',
       name: 'testing',
@@ -61,7 +59,7 @@ async function askProjectDetails() {
     // const desingPatherns = await
 
     console.log("Selection ends")
-    return { packageManager, arquitecture, importAlias, testing };
+    return { packageManager, arquitecture, importAlias, testing, database };
   } catch (error) {
     if (error.isTtyError) {
       process.stdout.write('Prompt cannot be displayed on this terminal.');
@@ -105,15 +103,15 @@ async function projectConfig(projectName) {
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
     // install dependencies
-    await runCommandWithBuilder(`npm i -E ${dependencies.join(' ')}`)
-    await runCommandWithBuilder(`npm i -E -D ${devDependencies.join(' ')}`)
-    //await configureEnvironment(details.database, projectName, details.language);
+    //await runCommandWithBuilder(`npm i -E ${dependencies.join(' ')}`)
+    //await runCommandWithBuilder(`npm i -E -D ${devDependencies.join(' ')}`)
+    await configureVarEnvironment(details.database, projectName);
 
     //await configureGitIgnore();
     await configureLanguage(details);
     //await configureDatabase(details.database, details.language);
     //await configureLogger(details.language);
-    await configureTesting(details.testing);
+    //await configureTesting(details.testing);
     //await configureMiddlewares(details.language);
     await configureExpressConfig(details);
 

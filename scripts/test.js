@@ -1,6 +1,9 @@
 import fs from "fs"
 import shell from 'shelljs'
+
 import { runCommandWithBuilder } from "../utils/runCommandWithBuilder.js"
+
+import { templateSumTest } from "../templates/test/index.js"
 
 const techs = {
     Jest: {
@@ -81,5 +84,11 @@ export function configureTesting(testing) {
   const content = JSON.stringify({ presets }, null, 2);
   fs.writeFileSync('babel.config.json', content);
 
-  fs.mkdirSync('test', { recursive: true });
+  fs.mkdirSync('__tests__', { recursive: true });
+
+  // write test
+  const testPath = '__tests__/index.ts'
+  if (!fs.existsSync(testPath)) {
+    fs.writeFileSync(testPath, templateSumTest())
+  }
 }

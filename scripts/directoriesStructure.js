@@ -8,17 +8,20 @@ import templateCodeMainAppTS from '../templates/main-app/ts/indes.js';
 
 const directoriesStructure = async (details) => {
   const folders = new Set([
-    'config',
-    '__test__',
-    'common',
+    //'configs',
+    '__tests__',
+    //'common',
   ]);
 
   await runCommandWithBuilder(() => {
-    // create src folder if do not exist
+    // create src folder if do not exist and basic folders
     const srcPath = 'src';
     if (!fs.existsSync(srcPath)) {
       fs.mkdirSync(srcPath);
     }
+    folders.forEach((folder) => {
+      if (!fs.existsSync(folder)) fs.mkdirSync(folder);
+    })
 
     // create each forlder be arquitecure selected
     // commonFolders.forEach((folder) => {

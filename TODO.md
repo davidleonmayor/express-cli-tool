@@ -1,8 +1,10 @@
 - [x] Dejar listo con el punto de entrada de la API.
 - [x] TS nativo por defecto.
 - [x] Relative paths "@" to this project, to code more easier
-- [ ] Basic config like clone project
-- [ ] testing
+- [x] testing
+- [ ] config envs entpoint
+- [ ] configure Docker
+- [ ] configure DB 
 
 ## Changes
 - [ ] One script to setup the enviroment like arquretcure, language setting, ETC and another to set up this, language, etc.
