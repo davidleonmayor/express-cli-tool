@@ -59,7 +59,7 @@ async function askProjectDetails() {
     // const desingPatherns = await
 
     console.log("Selection ends")
-    return { packageManager, arquitecture, importAlias, testing, database };
+    return { arquitecture, importAlias, testing, database };
   } catch (error) {
     if (error.isTtyError) {
       process.stdout.write('Prompt cannot be displayed on this terminal.');
@@ -103,8 +103,8 @@ async function projectConfig(projectName) {
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
     // install dependencies
-    //await runCommandWithBuilder(`npm i -E ${dependencies.join(' ')}`)
-    //await runCommandWithBuilder(`npm i -E -D ${devDependencies.join(' ')}`)
+    await runCommandWithBuilder(`npm i -E ${dependencies.join(' ')}`)
+    await runCommandWithBuilder(`npm i -E -D ${devDependencies.join(' ')}`)
     await configureVarEnvironment(details.database, projectName);
 
     //await configureGitIgnore();

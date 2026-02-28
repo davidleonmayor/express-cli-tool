@@ -10,7 +10,6 @@ import helmet from 'helmet';
 //   limiterMiddleware,
 //   morganMiddleware,
 // } from '../middlewares/index.ts';
-import server from '../server.ts';
 
 const configureExpress = (): Application => {
   const app: Application = express();
@@ -29,8 +28,6 @@ const configureExpress = (): Application => {
   // add your routes in here!!
   //app.use(errorMiddleware);
 
-  server();
-  
   return app;
 };
 

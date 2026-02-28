@@ -1,14 +1,12 @@
 const templateCodeServerTS = () => {
   return `
 import app from './app.ts';
-import configureExpress from './configs/express.config.ts'
 //import connectToDatabase from './configs/database.config.ts';
 //import { envConfig } from './configs/env.config.ts';
 //import logger from './configs/logger.config.ts';
 
 export default async function server(): Promise<void> {
   try {
-    const app = configureExpress();
     //await connectToDatabase();
     //app.listen(envConfig.APP_PORT, async () => {
     app.listen(4000, async() => {
