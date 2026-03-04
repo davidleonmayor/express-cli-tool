@@ -3,12 +3,12 @@ import fs from "fs";
 
 import { runCommandWithBuilder } from '../utils/runCommandWithBuilder.js';
 
-import templateCodeServerTS from '../templates/server/ts/index.js';
-import templateCodeMainAppTS from '../templates/main-app/ts/indes.js';
+import serverTemplate from '../templates/server/server.js';
+import indexTemplate from '../templates/server/index.js';
 
 const directoriesStructure = async (details) => {
   const folders = new Set([
-    //'configs',
+    'configs',
     '__tests__',
     //'common',
   ]);
@@ -31,15 +31,15 @@ const directoriesStructure = async (details) => {
     //   }
     // });
 
-    const appFilePath = path.join(srcPath, `app.ts`);
+    const indexFilePath = path.join(srcPath, `index.ts`);
     const serverFilePath = path.join(srcPath, `server.ts`);
 
-    const serverContent = templateCodeServerTS();
-    const appContent = templateCodeMainAppTS();
+    const serverContent = serverTemplate();
+    const appContent = indexTemplate();
 
-     if (!fs.existsSync(appFilePath && serverFilePath)) {
+     if (!fs.existsSync(indexFilePath && serverFilePath)) {
       fs.writeFileSync(serverFilePath, serverContent);
-      fs.writeFileSync(appFilePath, appContent);
+      fs.writeFileSync(indexFilePath, appContent);
     }
   });
 }

@@ -15,10 +15,10 @@ export async function configureLanguage(details) {
   // configure enpoint app
   console.log("before: ", packageJson);
 
-  packageJson.main = 'src/app.ts';
+  packageJson.main = 'src/index.ts';
   packageJson.type = 'module';
   packageJson.scripts = {
-    dev: "nodemon --exec 'tsx src/app.ts'",
+    dev: "nodemon --exec 'tsx src/index.ts'",
     start: 'node dist/index.ts',
     build: 'rm -rf dist && tsc',
     format: 'pettier --write .',

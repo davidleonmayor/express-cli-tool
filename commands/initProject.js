@@ -7,7 +7,7 @@ import shell from "shelljs";
 import { dependencies, devDependencies } from "../constants/jsonConfig.js"
 import { runCommandWithBuilder } from "../utils/runCommandWithBuilder.js"
 import { directoriesStructure } from "../scripts/directoriesStructure.js"
-import templateCodePackageJSON from "../templates/config/packageJSON.js"
+import templateCodePackageJSON from "../templates/configs/packageJSON.js"
 
 import { configureLanguage } from "../scripts/language.js"
 import { configureExpressConfig } from "../scripts/express.js"
@@ -81,7 +81,6 @@ async function projectConfig(projectName) {
 
   // initial config project
   const details = await askProjectDetails()
-  //process.stdout.write("\n");
   const spinner = ora(`\nInstallation in progress... ☕`).start();
 
   // project creation
@@ -93,7 +92,6 @@ async function projectConfig(projectName) {
 
     // basic package.json config
     const packageJsonPath = 'package.json';
-    //console.log("JSON template:", templateCodePackageJSON())
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
     packageJson.name = projectName;
     packageJson.description = `This is a ${projectName} project`;
@@ -105,7 +103,9 @@ async function projectConfig(projectName) {
     // install dependencies
     await runCommandWithBuilder(`npm i -E ${dependencies.join(' ')}`)
     await runCommandWithBuilder(`npm i -E -D ${devDependencies.join(' ')}`)
-    await configureVarEnvironment(details.database, projectName);
+    // enviroment
+    await directoriesStructure(details);
+    await configureVarEnvironment(details, projectName);
 
     //await configureGitIgnore();
     await configureLanguage(details);
@@ -117,8 +117,6 @@ async function projectConfig(projectName) {
 
     // setup prismaORM
     //await runCommandWithBuilder("npm i -E @prisma/client")
-
-    await directoriesStructure(details);
     
     spinner.succeed(chalk.green(`Project ${projectName} have been created 🎉 `));
     console.log(`
