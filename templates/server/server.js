@@ -3,6 +3,11 @@ const serverTemplate = () => {
 import cookieParser from 'cookie-parser';
 import express, { Application } from 'express';
 import helmet from 'helmet';
+
+import {
+  envs
+} from '../configs/env.config';
+
 //import {
 //  compressionMiddleware,
 //   corsMiddleware,
@@ -10,6 +15,7 @@ import helmet from 'helmet';
 //   limiterMiddleware,
 //   morganMiddleware,
 // } from '../middlewares/index.ts';
+
 
 export default class Server {
   private app: Application;
@@ -30,21 +36,24 @@ export default class Server {
 
     //add your routes in here!!
     //app.use(errorMiddleware);
+    
+    // Routers
+    this.app.get('/test', (req, res) => res.send('OK'))
   }
 
   public start() {
-        this.app.listen(4000, () => {
-            //logger.info('🚀 Servidor ejecutándose en puerto ' + 4000); // TODO: use envs.
-            //logger.info('🌍 Entorno: ' + envs.NODE_ENV');
-            //logger.info(
-            //    '📊 Logs guardándose en: ' + path.join(process.cwd(), "logs")}',
-            //);
-            console.log("Server running...")
-        });
-    }
+    this.app.listen(envs.PORT, () => {
+      //logger.info('🚀 Servidor ejecutándose en puerto ' + envs.PORT);
+      //logger.info('🌍 Entorno: ' + envs.NODE_ENV);
+      //logger.info(
+      //  '📊 Logs guardándose en: ' + path.join(process.cwd(), "logs")
+      //);
+      console.log('🚀 Server running on port ' + envs.PORT);
+      console.log('🌍 Environment: ' + envs.NODE_ENV);
+    });
+  }
 };
 `;
 }
 
 export default serverTemplate;
-

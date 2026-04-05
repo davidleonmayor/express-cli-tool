@@ -12,7 +12,7 @@ import templateCodePackageJSON from "../templates/configs/packageJSON.js"
 import { configureLanguage } from "../scripts/language.js"
 import { configureExpressConfig } from "../scripts/express.js"
 import { configureTesting } from "../scripts/test.js"
-import { configureVarEnvironment } from "../scripts/varEnv.js" 
+import { configureVarEnvironment } from "../scripts/varEnv.js"
 
 const packageJson = JSON.parse(
   fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
@@ -25,17 +25,17 @@ async function askProjectDetails() {
   try {
     // TODO: add all features
     const arquitecture = await select({
-        type: 'list',
-        name: 'arquitecture',
-        message: 'Choice an arquitecture',
-        //choices: ['clean', 'exagonal', 'capas']
-        choices: ['exagonal']
-      })
+      type: 'list',
+      name: 'arquitecture',
+      message: 'Choice an arquitecture',
+      //choices: ['clean', 'exagonal', 'capas']
+      choices: ['exagonal']
+    })
     const importAlias = await confirm({
       message: 'Would you use @/<module> alias?',
       default: true
     })
-  
+
     // External
     // const useDocker = await confirm({
     //   message: "Would you use Docker?",
@@ -54,7 +54,7 @@ async function askProjectDetails() {
       //choices: ['Jest & supertest', 'Mocha']
       choices: ['Jest', 'Mocha']
     })
-  
+
     //TODO: multi selector, for patherns
     // const desingPatherns = await
 
@@ -76,7 +76,7 @@ async function projectConfig(projectName) {
   // Project folder already exists
   if (fs.existsSync(projectName)) {
     process.stdout.write(chalk.red('✖ ERROR : Project already exists') + `\n`);
-    process.exit(1); 
+    process.exit(1);
   }
 
   // initial config project
@@ -97,7 +97,7 @@ async function projectConfig(projectName) {
     packageJson.description = `This is a ${projectName} project`;
     packageJson.language = PROGRAMIN_LANGUAGE;
     packageJson.testing = details.testing;
-    
+
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
     // install dependencies
@@ -117,7 +117,7 @@ async function projectConfig(projectName) {
 
     // setup prismaORM
     //await runCommandWithBuilder("npm i -E @prisma/client")
-    
+
     spinner.succeed(chalk.green(`Project ${projectName} have been created 🎉 `));
     console.log(`
   \nNext steps\n

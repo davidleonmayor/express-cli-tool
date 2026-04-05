@@ -37,7 +37,7 @@ const directoriesStructure = async (details) => {
     const serverContent = serverTemplate();
     const appContent = indexTemplate();
 
-     if (!fs.existsSync(indexFilePath && serverFilePath)) {
+    if (!fs.existsSync(indexFilePath && serverFilePath)) {
       fs.writeFileSync(serverFilePath, serverContent);
       fs.writeFileSync(indexFilePath, appContent);
     }

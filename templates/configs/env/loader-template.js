@@ -1,14 +1,13 @@
-const loaderTemplate = () => {
-return `import { z } from "zod";
+const loader = `import { z } from "zod";
 import "dotenv/config";
-import { logger } from "./index";
+// import { logger } from "./index";
 
 const envSchema = z.object({
     // Aplication
     NODE_ENV: z
         .enum(["development", "test", "production"])
         .default("development"),
-    PORT: z.string().regex(/^\d+$/).transform(Number).default(4000),
+    PORT: z.string().regex(/^\\d+$/).transform(Number).default(4000),
     // Database
     DATABASE_URL: z.string(),
     // Auth
@@ -29,14 +28,13 @@ const envSchema = z.object({
 const parsedEnv = envSchema.safeParse(process.env);
 
 if (!parsedEnv.success) {
-    console.error('[Env] error: \n',  parsedEnv.error);
-    throw new Error('[Env] error: \n', parsedEnv.error);
+    console.error('[Env] error: \\n', parsedEnv.error);
+    throw new Error('[Env] error: \\n', parsedEnv.error);
 }
 
 console.log("[env] success loaded");
 
 export const envs = parsedEnv.data;
 `;
-}
 
-export default loaderTemplate;
+export default loader;
