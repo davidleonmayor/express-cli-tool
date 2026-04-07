@@ -2,9 +2,16 @@
   "name": "express-cli-utils",
   "version": "1.0.0",
   "description": "Provides an initial configuration and architecture, then generates content according to the configuration.",
-  "main": "index.js",
+  "main": "dist/bin/index.js",
+  "types": "dist/bin/index.d.ts",
   "type": "module",
   "scripts": {
+    "build": "tsc",
+    "dev": "node dist/bin/index.js",
+    "lint": "eslint \"src/**/*.ts\" --fix",
+    "format": "prettier --write .",
+    "prepare": "pnpm run build",
+    "prepublishOnly": "pnpm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,15 +22,22 @@
     "@inquirer/confirm": "6.0.7",
     "@inquirer/prompts": "8.0.2",
     "chalk": "5.6.2",
-    "child_process": "1.0.2",
     "commander": "14.0.2",
     "figlet": "1.9.4",
     "inquirer": "13.0.2",
     "ora": "9.0.0",
-    "path": "0.12.7",
     "shelljs": "0.10.0"
   },
+  "devDependencies": {
+    "@types/figlet": "^1.5.8",
+    "@types/node": "^22.0.0",
+    "@types/shelljs": "^0.8.15",
+    "typescript": "^5.5.0"
+  },
   "bin": {
-    "excli": "./bin/index.js"
-  }
+    "excli": "dist/bin/index.js"
+  },
+  "files": [
+    "dist"
+  ]
 }

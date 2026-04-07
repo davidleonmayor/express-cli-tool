@@ -1,12 +1,17 @@
-- [x] Dejar listo con el punto de entrada de la API.
-- [x] TS nativo por defecto.
-- [x] Relative paths "@" to this project, to code more easier
-- [x] testing
-- [ ] config envs entpoint
-- [ ] configure Docker
-- [ ] configure DB 
+# TODO FETURES
+
+## Procces
+- [x] Set up the API entry point
+- [x] Use native TypeScript by default
+- [x] Configure relative paths using "@" for easier imports
+- [ ] Set up testing
+- [x] Configure environment variables entry point
+- [ ] Migrate full project(bolertplate) from JavaScript to TypeScript
+- [ ] Configure Docker
+- [ ] Configure the database
 
 ## Changes
-- [ ] One script to setup the enviroment like arquretcure, language setting, ETC and another to set up this, language, etc.
-- [ ] Best way to nanage packages (recomended, ofer an option in the cli EJ: excli new test --pm yarn|npm|pnpm|bum)
+- [ ]Create one script to set up the environment (architecture, language settings, etc.) and another script to configure language and related settings
+- [ ] Define the best way to manage packages (recommended), and offer an option in the CLI
+Example: excli new test --pm yarn|npm|pnpm|bun
 
