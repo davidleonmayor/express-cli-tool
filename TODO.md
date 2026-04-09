@@ -6,7 +6,7 @@
 - [x] Configure relative paths using "@" for easier imports
 - [ ] Set up testing
 - [x] Configure environment variables entry point
-- [ ] Migrate full project(bolertplate) from JavaScript to TypeScript
+- [x] Migrate full project(bolertplate) from JavaScript to TypeScript
 - [ ] Configure Docker
 - [ ] Configure the database
 
