@@ -1,11 +1,11 @@
 import path from "path";
 import fs from "fs";
 
-import { runCommandWithBuilder } from "../utils/runCommandWithBuilder.js";
+import { runCommandWithBuilder } from "../utils/runCommandWithBuilder";
 
-import serverTemplate from "../templates/server/server.js";
-import indexTemplate from "../templates/server/index.js";
-import type { ProjectDetails } from "../types/prompt.js";
+import serverTemplate from "../templates/server/server";
+import indexTemplate from "../templates/server/index";
+import type { ProjectDetails } from "../types/prompt";
 
 const directoriesStructure = async (details: ProjectDetails): Promise<void> => {
   const folders = new Set(["configs", "__tests__"]);

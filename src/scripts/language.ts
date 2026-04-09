@@ -1,6 +1,6 @@
 import fs from "fs";
-import { runCommandWithBuilder } from "../utils/runCommandWithBuilder.js";
-import type { ProjectDetails } from "../types/prompt.js";
+import { runCommandWithBuilder } from "../utils/runCommandWithBuilder";
+import type { ProjectDetails } from "../types/prompt";
 
 /**
  * Represents a book.

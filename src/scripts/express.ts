@@ -1,10 +1,10 @@
 import fs from "fs";
 import path from "path";
 
-// import templateCodeExpressConfigTS from '../templates/configs/express-config/index.js';
-import serverTemplate from "../templates/server/server.js";
-import indexTemplate from "../templates/server/index.js";
-import type { ProjectDetails } from "../types/prompt.js";
+// import templateCodeExpressConfigTS from '../templates/configs/express-config/index';
+import serverTemplate from "../templates/server/server";
+import indexTemplate from "../templates/server/index";
+import type { ProjectDetails } from "../types/prompt";
 
 /*
  * Used to create express configuration

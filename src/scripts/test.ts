@@ -1,8 +1,8 @@
 import fs from "fs";
 import shell from "shelljs";
 
-import { templateSumTest } from "../templates/test/index.js";
-import type { Testing } from "../types/prompt.js";
+import { templateSumTest } from "../templates/test/index";
+import type { Testing } from "../types/prompt";
 
 type TestingConfig = {
   scripts: Record<string, string>;

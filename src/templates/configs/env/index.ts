@@ -3,4 +3,4 @@ NODE_ENV="development"
 PORT=4000
 `;
 
-export * from "./loader-template.js";
+export * from "./loader-template";

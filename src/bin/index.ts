@@ -5,7 +5,7 @@ import chalk from "chalk";
 import ora from "ora";
 import figlet from "figlet";
 
-import { projectConfig } from "../commands/initProject.js";
+import { projectConfig } from "../commands/initProject";
 
 console.log(
   chalk.yellow(figlet.textSync("Express CLI", { horizontalLayout: "full" })),
