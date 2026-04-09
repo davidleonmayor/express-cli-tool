@@ -6,7 +6,7 @@
   "types": "dist/bin/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src/bin/index.ts --out-dir dist/bin --format esm --target node18 --dts --sourcemap --clean",
     "dev": "node dist/bin/index.js",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "format": "prettier --write .",
@@ -32,6 +32,7 @@
     "@types/figlet": "^1.5.8",
     "@types/node": "^22.0.0",
     "@types/shelljs": "^0.8.15",
+    "tsup": "^8.5.0",
     "typescript": "^5.5.0"
   },
   "bin": {
