@@ -4,21 +4,23 @@ import { select, confirm } from "@inquirer/prompts";
 import ora from "ora";
 import shell from "shelljs";
 
-import { dependencies, devDependencies } from "../constants/jsonConfig.js";
-import { runCommandWithBuilder } from "../utils/runCommandWithBuilder.js";
-import { directoriesStructure } from "../scripts/directoriesStructure.js";
-import templateCodePackageJSON from "../templates/configs/packageJSON.js";
+import { dependencies, devDependencies } from "../constants/jsonConfig";
+import { runCommandWithBuilder } from "../utils/runCommandWithBuilder";
+import { directoriesStructure } from "../scripts/directoriesStructure";
+import templateCodePackageJSON from "../templates/configs/packageJSON";
 
-import { configureLanguage } from "../scripts/language.js";
-import { configureExpressConfig } from "../scripts/express.js";
-import { configureTesting } from "../scripts/test.js";
-import { configureVarEnvironment } from "../scripts/varEnv.js";
+import { configureLanguage } from "../scripts/language";
+import { configureExpressConfig } from "../scripts/express";
+import { configureTesting } from "../scripts/test";
+import { configureVarEnvironment } from "../scripts/varEnv";
+import { configureLogger } from '../scripts/logger'
+
 import type {
   Architecture,
   Database,
   ProjectDetails,
   Testing,
-} from "../types/prompt.js";
+} from "../types/prompt";
 
 const packageJson = JSON.parse(
   fs.readFileSync(new URL("../../package.json", import.meta.url), "utf8"),
@@ -40,11 +42,6 @@ async function askProjectDetails(): Promise<ProjectDetails> {
       default: true,
     });
 
-    // External
-    // const useDocker = await confirm({
-    //   message: "Would you use Docker?",
-    //   default: true
-    // })
     const database = (await select({
       message: "Choise a database",
       choices: ["MySQL", "PostgreSQL"],
@@ -55,11 +52,18 @@ async function askProjectDetails(): Promise<ProjectDetails> {
       choices: ["Jest", "Mocha"],
     })) as Testing;
 
+
+    // External
+    const useDocker = await confirm({
+      message: "Would you use Docker?",
+      default: true
+    })
+
     //TODO: multi selector, for patherns
     // const desingPatherns = await
 
     console.log("Selection ends");
-    return { arquitecture, importAlias, testing, database };
+    return { arquitecture, importAlias, testing, database, useDocker };
   } catch (error) {
     const promptError = error as { isTtyError?: boolean };
     if (promptError?.isTtyError) {
@@ -110,8 +114,8 @@ async function projectConfig(projectName: string): Promise<void> {
 
     //await configureGitIgnore();
     await configureLanguage(details);
+    await configureLogger();
     //await configureDatabase(details.database, details.language);
-    //await configureLogger(details.language);
     //await configureTesting(details.testing);
     //await configureMiddlewares(details.language);
     await configureExpressConfig(details);

@@ -1,6 +1,6 @@
 const loader = `import { z } from "zod";
 import "dotenv/config";
-// import { logger } from "./index";
+import { logger } from "./index";
 
 const envSchema = z.object({
     // Aplication

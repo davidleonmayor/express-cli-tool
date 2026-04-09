@@ -1,8 +1,10 @@
 import fs from "fs";
 
-import { dotEnvTemplate } from "../templates/configs/env/index.js";
-import loaderTemplate from "../templates/configs/env/loader-template.js";
-import type { ProjectDetails } from "../types/prompt.js";
+import { dotEnvTemplate } from "../templates/configs/env/index";
+import loaderTemplate from "../templates/configs/env/loader-template";
+import {  barrelTemplate} from '../templates/configs/barrel.ts'
+
+import type { ProjectDetails } from "../types/prompt";
 
 export async function configureVarEnvironment(
   details: ProjectDetails,
@@ -13,6 +15,10 @@ export async function configureVarEnvironment(
   if (!fs.existsSync(envPath)) fs.writeFileSync(envPath, dotEnvTemplate);
 
   // load loader
-  const loaderPath = "configs/env.config.ts";
+  const loaderPath = "configs/envs.config.ts";
   fs.writeFileSync(loaderPath, loaderTemplate);
+
+  // barrel
+  const barrelPath = 'configs/index.ts'
+  if (!fs.existsSync(barrelPath)) fs.writeFileSync(barrelPath, barrelTemplate)
 }

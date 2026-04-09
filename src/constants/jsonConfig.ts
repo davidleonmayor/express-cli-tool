@@ -18,6 +18,7 @@ const devDependencies: string[] = [
   "@types/node",
   "tsx",
   "zod",
+  "winston"
 ];
 
 export { dependencies, devDependencies };

@@ -9,4 +9,5 @@ export type ProjectDetails = {
   importAlias: boolean;
   testing: Testing;
   database: Database;
+  useDocker: boolean;
 };
